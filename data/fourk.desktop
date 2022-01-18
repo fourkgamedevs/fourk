@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=FourK
+GenericName=4096;
+Comment=A Number Sliding Game
+Categories=Game;Utility;
+Exec=com.github.keilith-l.eksanos
+Icon=com.github.keilith-l.eksanos
+Terminal=false
+Type=Application
+Keywords=2048;4096;fourk;
