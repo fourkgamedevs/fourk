@@ -4,6 +4,10 @@ executable(
 	meson.project_name(),
 	'src'/'Application.vala',
 	'src'/'MainWindow.vala',
+	'src'/'Widgets'/'BoardGrid.vala',
+	'src'/'Widgets'/'Tile.vala',
+	'src'/'Widgets'/'ScoreBox.vala',
+	'src'/'Views'/'GameView.vala',
 	dependencies: [
 		dependency('libhandy-1', version: '>=0.91.0'),
 		dependency('granite'),

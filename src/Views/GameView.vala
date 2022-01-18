@@ -3,9 +3,10 @@ namespace FourK.Views {
 		private Widgets.ScoreBox high_score;
 		private Widgets.ScoreBox current_score;
 		private Widgets.BoardGrid board;
-		
-		public GameView () {
 
+		public GameView () {
+			board = new Widgets.BoardGrid ();
+			add (board);
 		}
 	}
 }
