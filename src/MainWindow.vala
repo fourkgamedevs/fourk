@@ -3,10 +3,11 @@ namespace FourK {
 		private Hdy.HeaderBar header_bar;
 		private Hdy.Deck deck;
 		private Views.GameView game_view;
+		private Controllers.Game game_controller;
 
-		public MainWindow (FourK.Application eksanos_app) {
+		public MainWindow (FourK.Application fourk_app) {
 			Object (
-				application: eksanos_app,
+				application: fourk_app,
 				title: "FourK",
 				default_height: 640,
 				default_width: 360,
@@ -19,7 +20,9 @@ namespace FourK {
 			var global_grid = new Gtk.Grid ();
 			global_grid.orientation = Gtk.Orientation.VERTICAL;
 
-			game_view = new Views.GameView ();
+			game_controller = new Controllers.Game (this);
+			game_view = game_controller.get_game_view ();
+
 			setup_header_bar ();
 			setup_deck ();
 

@@ -10,6 +10,27 @@ namespace FourK.Views {
 			init_board_grid ();
 		}
 
+		public void update_high_score () {
+
+		}
+
+		public void update_current_score () {
+
+		}
+
+		public void update_board (int[,] board_state ) {
+			string[,] board_state_strings = new string[4,4];
+			for (int r = 0; r < 4; r++) {
+				for (int c = 0; c < 4; c++) {
+					board_state_strings[c,r] = board_state[r,c].to_string ();
+					if(board_state[r,c] == 0) {
+						board_state_strings[c,r] = "";
+					}
+				}
+			}
+			board.set_board_state (board_state_strings);
+		}
+
 		private void init_properties () {
 			set_vexpand (true);
 			set_hexpand (true);

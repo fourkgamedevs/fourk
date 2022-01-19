@@ -6,19 +6,20 @@ namespace FourK.Widgets {
 			init_board ();
 		}
 
+		public void set_board_state (string[,] board_state) {
+			for (int r = 0; r < 4; r++) {
+				for (int c = 0; c < 4; c++) {
+					board_tiles[c,r].set_number (board_state[r,c]); 
+				}
+			}
+		}
+
 		private void init_board () {
 			board_tiles = new Widgets.Tile[4,4];
 			for (int r = 0; r < 4; r++) {
 				for (int c = 0; c < 4; c++) {
 					board_tiles[c,r] = new Widgets.Tile ();
-					if (c == 0) {
-						board_tiles[c,r].set_number ("");
-
-					}else {
-						board_tiles[c,r].set_number ("4096");
-
-					}
-
+					board_tiles[c,r].set_number ("");
 					attach (board_tiles[c,r], c, r);
 				}
 			}
@@ -35,7 +36,6 @@ namespace FourK.Widgets {
 			set_halign (Gtk.Align.CENTER);
 
 			set_size_request (300, 300);
-
 		}
 	}
 }
