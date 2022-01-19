@@ -41,4 +41,11 @@ namespace FourK{
 			return new Application ().run (args);
 		}
 	}
+
+	public enum Directions {
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT
+	}
 }
