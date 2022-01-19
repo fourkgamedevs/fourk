@@ -65,6 +65,7 @@ namespace FourK.Models {
 				}
 			}
 		}
+		
 		private void print_board () {
 			for (int y = 0; y < 4; y++) {
 				for (int x = 0; x < 4; x++) {
