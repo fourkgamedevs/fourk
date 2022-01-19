@@ -75,8 +75,6 @@ namespace FourK.Models {
 			int index_y = GLib.Random.int_range (0,4);
 			board_state[index_x,index_y] = val;
 			board_updated (board_state);
-
-
 		}
 
 		private void spawn_tile () {
@@ -145,9 +143,6 @@ namespace FourK.Models {
 					}
 				}
 			}
-
-			print_board ();
-
 		}
 
 		private void shift_cols_down () {
@@ -182,9 +177,6 @@ namespace FourK.Models {
 					}
 				}
 			}
-
-			print_board ();
-
 		}
 
 		private void shift_rows_left () {
@@ -219,9 +211,6 @@ namespace FourK.Models {
 					}
 				}
 			}
-
-			print_board ();
-
 		}
 
 		private void shift_rows_right () {
@@ -252,15 +241,11 @@ namespace FourK.Models {
 						c--;
 					}
 					if (c < i) {
-						print ( " I: " + i.to_string () + " C: " + c.to_string () + " R: " + r.to_string() + " VAL: " + board_state[c,r].to_string() + "\n");
 						board_state[i,r] = board_state[c,r];
 						board_state[c,r] = 0;
 					}
 				}
 			}
-
-			print_board ();
-
 		}
 	}
 }
