@@ -7,8 +7,13 @@ namespace FourK.Controllers {
 		public Game (Hdy.ApplicationWindow window) {
 			game_view = new Views.GameView ();
 			game_model = new Models.Game ();
+			game_model.board_updated.connect (on_model_board_updated);
 			key_event_controller = new Gtk.EventControllerKey (window);
-			key_event_controller.key_pressed.connect (on_key_pressed);
+			key_event_controller.key_pressed.connect (on_key_released);
+			game_model.start_new_game ();
+			int[,] board_state = game_model.get_board_state ();
+			game_view.update_board (board_state);
+
 			//GLib.Timeout.add_seconds_full (GLib.Priority.DEFAULT, 2, test_board_update);
 		}
 
@@ -16,14 +21,32 @@ namespace FourK.Controllers {
 			return game_view;
 		}
 
-		public bool on_key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
+		public bool on_key_released (uint keyval, uint keycode, Gdk.ModifierType state) {
 			if(keyval == Gdk.Key.Left) {
-				game_model.start_new_game ();
-				int[,] board_state = game_model.get_board_state ();
-				game_view.update_board (board_state);
+				game_model.move(Directions.LEFT);
+
+				return true;
+			}
+			if(keyval == Gdk.Key.Right) {
+				game_model.move(Directions.RIGHT);
+
+				return true;
+			}
+			if(keyval == Gdk.Key.Up) {
+				game_model.move(Directions.UP);
+
+				return true;
+			}
+			if(keyval == Gdk.Key.Down) {
+				game_model.move(Directions.DOWN);
+
 				return true;
 			}
 			return false;
+		}
+
+		private void on_model_board_updated (int[,] board_state) {
+			game_view.update_board (board_state);
 		}
 
 		private bool test_board_update () {
