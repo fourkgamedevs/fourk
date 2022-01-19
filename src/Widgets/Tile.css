@@ -1,0 +1,63 @@
+.empty {
+	background-color: transparent ;
+}
+
+.2 {
+	background-color: #666666;
+}
+
+.4 {
+	background-color: #7e8087;
+}
+
+.8 {
+	background-color: #555761;
+}
+
+.16 {
+	background-color: #667885;
+}
+
+.32 {
+	background-color: #485a6c;
+}
+
+.64 {
+	background-color: #273445;
+}
+
+.128 {
+	background-color: #007367;
+}
+
+.256 {
+	background-color: #0e9a83;
+}
+
+.512 {
+	background-color: #28bca3;
+}
+
+.1024 {
+	background-color: #452981;
+}
+
+.2048 {
+	background-color: #7239b3;
+}
+
+.4096 {
+	background-color: #a56de2;
+}
+
+.8192 {
+	background-color: #000000;
+}
+
+.16384 {
+	background-color: #000000;
+}
+
+.TileText {
+	color : #fafafa;
+}

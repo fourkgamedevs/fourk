@@ -49,6 +49,7 @@ namespace FourK.Views {
 
 			var context = frame.get_style_context ();
 			context.add_class (Granite.STYLE_CLASS_CARD);
+			context.add_class (Granite.STYLE_CLASS_ROUNDED);
 
 			board = new Widgets.BoardGrid ();
 			frame.add (board);

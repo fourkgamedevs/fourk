@@ -9,7 +9,7 @@ namespace FourK.Widgets {
 		public void set_board_state (string[,] board_state) {
 			for (int r = 0; r < 4; r++) {
 				for (int c = 0; c < 4; c++) {
-					board_tiles[c,r].set_number (board_state[r,c]); 
+					board_tiles[c,r].set_number (board_state[r,c]);
 				}
 			}
 		}

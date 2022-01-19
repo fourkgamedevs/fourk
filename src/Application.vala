@@ -13,6 +13,15 @@ namespace FourK{
 			setup_color_preference ();
 			setup_custom_resources ();
 
+			var css_provider = new Gtk.CssProvider ();
+			try {
+				css_provider.load_from_path("../src/Widgets/Tile.css");
+			} catch (GLib.Error e) {
+				warning ("Could not get css provider");
+			}
+
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
 			if (get_windows().length() > 0) {
 				app_window.present();
 				return;
