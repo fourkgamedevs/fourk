@@ -19,25 +19,34 @@ namespace FourK.Models {
 		public void move (FourK.Directions direction) {
 			switch (direction) {
 				case FourK.Directions.UP:
-					shift_cols_up ();
-					board_updated (board_state);
+					if (shift_cols_up ()) {
+						board_updated (board_state);
+						increment_move_counter ();
+						spawn_tile ();
+					}
 					break;
 				case FourK.Directions.DOWN:
-					shift_cols_down ();
-					board_updated (board_state);
+					if (shift_cols_down ()) {
+						board_updated (board_state);
+						increment_move_counter ();
+						spawn_tile ();
+					}
 					break;
 				case FourK.Directions.LEFT:
-					shift_rows_left ();
-					board_updated (board_state);
+					if (shift_rows_left ()) {
+						board_updated (board_state);
+						increment_move_counter ();
+						spawn_tile ();
+					}
 					break;
 				case FourK.Directions.RIGHT:
-					shift_rows_right ();
-					board_updated (board_state);
+					if (shift_rows_right ()) {
+						board_updated (board_state);
+						increment_move_counter ();
+						spawn_tile ();
+					}
 					break;
 			}
-			increment_move_counter ();
-			spawn_tile ();
-			print(direction.to_string ());
 			return;
 		}
 
@@ -111,141 +120,202 @@ namespace FourK.Models {
 			board_updated (board_state);
 		}
 
-		private void shift_cols_up () {
+		private bool shift_cols_up () {
+			int [,] new_state = new int[4,4];
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					new_state[x,y] = board_state[x,y];
+				}
+			}
+
 			for(int c = 0; c < 4; c++) {
 				// Pull the next non-empty tile to current element
 				for (int i = 0; i < 4 - 1; i++) {
 					int r = i;
-					while (board_state[c,r] == 0 && r < board_state.length[0] - 1) {
+					while (new_state[c,r] == 0 && r < new_state.length[0] - 1) {
 						r++;
 					}
 					if (r > i) {
-						board_state[c,i] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[c,i] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 				// Combine Adjacent Elements that are the same
-				for (int i = 0; i < board_state.length[0] - 1; i++) {
-					if (board_state[c,i] == board_state[c,i+1]) {
-						board_state[c,i] = 2*board_state[c,i];
-						board_state[c,i+1] = 0;
+				for (int i = 0; i < new_state.length[0] - 1; i++) {
+					if (new_state[c,i] == new_state[c,i+1]) {
+						new_state[c,i] = 2*new_state[c,i];
+						new_state[c,i+1] = 0;
 					}
 				}
 				// Pull the next non-empty tile to current element
 				for (int i = 0; i < 4 - 1; i++) {
 					int r = i;
-					while (board_state[c,r] == 0 && r < board_state.length[0] - 1) {
+					while (new_state[c,r] == 0 && r < new_state.length[0] - 1) {
 						r++;
 					}
 					if (r > i) {
-						board_state[c,i] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[c,i] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 			}
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					if (new_state[x,y] != board_state[x,y]) {
+						board_state = new_state;
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
-		private void shift_cols_down () {
+		private bool shift_cols_down () {
+			int [,] new_state = new int[4,4];
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					new_state[x,y] = board_state[x,y];
+				}
+			}
 			for(int c = 0; c < 4; c++) {
 				// Pull the next non-empty tile to current element
 				for (int i = 3; i > 0; i--) {
 					int r = i;
-					while (board_state[c,r] == 0 && r > 0) {
+					while (new_state[c,r] == 0 && r > 0) {
 						r--;
 					}
 					if (r < i) {
-						board_state[c,i] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[c,i] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 				// Combine Adjacent Elements that are the same
 				for (int i = 3; i > 0; i--) {
-					if (board_state[c,i] == board_state[c,i-1]) {
-						board_state[c,i] = 2*board_state[c,i];
-						board_state[c,i-1] = 0;
+					if (new_state[c,i] == new_state[c,i-1]) {
+						new_state[c,i] = 2*new_state[c,i];
+						new_state[c,i-1] = 0;
 					}
 				}
 				// Pull the next non-empty tile to current element
 				for (int i = 3; i > 0; i--) {
 					int r = i;
-					while (board_state[c,r] == 0 && r > 0) {
+					while (new_state[c,r] == 0 && r > 0) {
 						r--;
 					}
 					if (r < i) {
-						board_state[c,i] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[c,i] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 			}
+
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					if (new_state[x,y] != board_state[x,y]) {
+						board_state = new_state;
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
-		private void shift_rows_left () {
+		private bool shift_rows_left () {
+			int [,] new_state = new int[4,4];
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					new_state[x,y] = board_state[x,y];
+				}
+			}
 			for(int r = 0; r < 4; r++) {
 				// Pull the next non-empty tile to current element
 				for (int i = 0; i < 4 - 1; i++) {
 					int c = i;
-					while (board_state[c,r] == 0 && c < board_state.length[0] - 1) {
+					while (new_state[c,r] == 0 && c < new_state.length[0] - 1) {
 						c++;
 					}
 					if (c > i) {
-						board_state[i,r] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[i,r] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 				// Combine Adjacent Elements that are the same
-				for (int i = 0; i < board_state.length[0] - 1; i++) {
-					if (board_state[i,r] == board_state[i+1,r]) {
-						board_state[i,r] = 2*board_state[i,r];
-						board_state[i+1,r] = 0;
+				for (int i = 0; i < new_state.length[0] - 1; i++) {
+					if (new_state[i,r] == new_state[i+1,r]) {
+						new_state[i,r] = 2*new_state[i,r];
+						new_state[i+1,r] = 0;
 					}
 				}
 				// Pull the next non-empty tile to current element
 				for (int i = 0; i < 4 - 1; i++) {
 					int c = i;
-					while (board_state[c,r] == 0 && c < board_state.length[0] - 1) {
+					while (new_state[c,r] == 0 && c < new_state.length[0] - 1) {
 						c++;
 					}
 					if (c > i) {
-						board_state[i,r] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[i,r] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 			}
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					if (new_state[x,y] != board_state[x,y]) {
+						board_state = new_state;
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
-		private void shift_rows_right () {
+		private bool shift_rows_right () {
+			int [,] new_state = new int[4,4];
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					new_state[x,y] = board_state[x,y];
+				}
+			}
 			for(int r = 0; r < 4; r++) {
 				// Pull the next non-empty tile to current element
 				for (int i = 3; i > 0; i--) {
 					int c = i;
-					while (board_state[c,r] == 0 && c > 0) {
+					while (new_state[c,r] == 0 && c > 0) {
 						c--;
 					}
 					if (c < i) {
-						print ( " I: " + i.to_string () + " C: " + c.to_string () + " R: " + r.to_string() + " VAL: " + board_state[c,r].to_string() + "\n");
-						board_state[i,r] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[i,r] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 				// Combine Adjacent Elements that are the same
 				for (int i = 3; i > 0; i--) {
-					if (board_state[i,r] == board_state[i-1,r]) {
-						board_state[i,r] = 2*board_state[i,r];
-						board_state[i-1,r] = 0;
+					if (new_state[i,r] == new_state[i-1,r]) {
+						new_state[i,r] = 2*new_state[i,r];
+						new_state[i-1,r] = 0;
 					}
 				}
 				// Pull the next non-empty tile to current element
 				for (int i = 3; i > 0; i--) {
 					int c = i;
-					while (board_state[c,r] == 0 && c > 0) {
+					while (new_state[c,r] == 0 && c > 0) {
 						c--;
 					}
 					if (c < i) {
-						board_state[i,r] = board_state[c,r];
-						board_state[c,r] = 0;
+						new_state[i,r] = new_state[c,r];
+						new_state[c,r] = 0;
 					}
 				}
 			}
+			for (int y = 0; y < 4; y++) {
+				for (int x = 0; x < 4; x++) {
+					if (new_state[x,y] != board_state[x,y]) {
+						board_state = new_state;
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 	}
 }
