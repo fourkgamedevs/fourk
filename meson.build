@@ -10,6 +10,7 @@ executable(
 	'src'/'Views'/'GameView.vala',
 	'src'/'Controllers'/'Game.vala',
 	'src'/'Models'/'Game.vala',
+	'src'/'Models'/'Board.vala',
 	dependencies: [
 		dependency('libhandy-1', version: '>=0.91.0'),
 		dependency('granite'),
