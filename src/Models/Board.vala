@@ -1,15 +1,14 @@
 namespace FourK.Models {
 	internal class Board {
 		private int[,] board_state;
+		private bool[,] tile_merged_states;
 		private bool[] valid_move_state;
 
 		public Board () {
+			tile_merged_states = new bool[4,4];
 			board_state = new int[4,4];
-			clear_board ();
 			valid_move_state = new bool[4];
-			for (int i = 0; i < 4; i++) {
-				valid_move_state[i] = true;
-			}
+			clear_board ();
 		}
 
 		public void clear_board () {
@@ -18,6 +17,18 @@ namespace FourK.Models {
 					board_state[c,r] = 0;
 				}
 			}
+			reset_tile_merge_states ();
+			reset_valid_moves ();
+		}
+
+		public void print_board () {
+			for (int r = 0; r < 4; r++) {
+				for (int c = 0; c < 4; c++) {
+					print(board_state[c,r].to_string () + "|");
+				}
+				print("\n");
+			}
+			print("\n");
 		}
 
 		public int[,] get_state () {
@@ -77,6 +88,7 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
+			reset_tile_merge_states ();
 		}
 
 		public void shift_cols_down () {
@@ -86,6 +98,7 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
+			reset_tile_merge_states ();
 		}
 
 		public void shift_rows_right () {
@@ -95,7 +108,7 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
-
+			reset_tile_merge_states ();
 		}
 
 		public void shift_rows_left () {
@@ -105,8 +118,22 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
+			reset_tile_merge_states ();
 		}
 
+		private void reset_tile_merge_states () {
+			for (int r = 0; r < 4; r++) {
+				for (int c = 0; c < 4; c++) {
+					tile_merged_states[c,r] = false;
+				}
+			}
+		}
+		private void reset_valid_moves ();
+			for (int i = 0; i < 4; i++) {
+				valid_move_state[i] = true;
+			}
+		}
+		
 		private void update_valid_moves () {
 			for (int i = 0; i < 4; i++) {
 				valid_move_state[i] = false;
@@ -128,6 +155,7 @@ namespace FourK.Models {
 					}
 				}
 			}
+			//print_board ();
 		}
 
 		private void shift_tile (int index_c, int index_r, FourK.Directions direction) {
@@ -151,22 +179,22 @@ namespace FourK.Models {
 			}
 			switch (direction) {
 				case FourK.Directions.RIGHT:
-					if (index_c != 3 && board_state[index_c, index_r] == board_state[index_c+1, index_r] ) {
+					if (index_c != 3 && board_state[index_c, index_r] == board_state[index_c+1, index_r] && tile_merged_states[index_c+1, index_r] == false ) {
 						return true;
 					}
 					break;
 				case FourK.Directions.LEFT:
-					if (index_c != 0 && board_state[index_c, index_r] == board_state[index_c-1, index_r] ) {
+					if (index_c != 0 && board_state[index_c, index_r] == board_state[index_c-1, index_r] && tile_merged_states[index_c-1, index_r] == false ) {
 						return true;
 					}
 					break;
 				case FourK.Directions.DOWN:
-					if (index_r != 3 && board_state[index_c, index_r] == board_state[index_c, index_r+1] ) {
+					if (index_r != 3 && board_state[index_c, index_r] == board_state[index_c, index_r+1] && tile_merged_states[index_c, index_r+1] == false ) {
 						return true;
 					}
 					break;
 				case FourK.Directions.UP:
-					if (index_r != 0 && board_state[index_c, index_r] == board_state[index_c, index_r-1] ) {
+					if (index_r != 0 && board_state[index_c, index_r] == board_state[index_c, index_r-1] && tile_merged_states[index_c, index_r-1] == false ) {
 						return true;
 					}
 					break;
@@ -218,24 +246,28 @@ namespace FourK.Models {
 			switch (direction) {
 				case FourK.Directions.RIGHT:
 					if (index_c != 3) {
+						tile_merged_states[index_c + 1, index_r] = true;
 						board_state[index_c + 1, index_r] = board_state[index_c, index_r] * 2;
 						board_state[index_c, index_r] = 0;
 					}
 					break;
 				case FourK.Directions.LEFT:
 					if (index_c != 0) {
+						tile_merged_states[index_c - 1, index_r] = true;
 						board_state[index_c - 1, index_r] = board_state[index_c, index_r] * 2;
 						board_state[index_c, index_r] = 0;
 					}
 					break;
 				case FourK.Directions.DOWN:
 					if (index_r != 3) {
+						tile_merged_states[index_c, index_r + 1] = true;
 						board_state[index_c, index_r + 1] = board_state[index_c, index_r] * 2;
 						board_state[index_c, index_r] = 0;
 					}
 					break;
 				case FourK.Directions.UP:
 					if (index_r != 0) {
+						tile_merged_states[index_c, index_r - 1] = true;
 						board_state[index_c, index_r - 1] = board_state[index_c, index_r] * 2;
 						board_state[index_c, index_r] = 0;
 					}
