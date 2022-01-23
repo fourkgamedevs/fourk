@@ -5,7 +5,7 @@ namespace FourK.Controllers {
 		private Gtk.EventControllerKey key_event_controller;
 
 		public Game (Hdy.ApplicationWindow window) {
-			game_view = new Views.GameView ();
+			game_view = new Views.GameView (window);
 			game_model = new Models.Game ();
 			game_model.board_updated.connect (on_model_board_updated);
 			key_event_controller = new Gtk.EventControllerKey (window);
@@ -43,6 +43,7 @@ namespace FourK.Controllers {
 				game_model.move(Directions.DOWN);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
+				game_view.show_game_over_dialog ();
 				return true;
 			}
 			return false;

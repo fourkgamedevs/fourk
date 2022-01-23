@@ -7,7 +7,10 @@ namespace FourK.Views {
 		private Widgets.BoardGrid board;
 		private Gtk.Frame frame;
 
-		public GameView () {
+		private Gtk.Window parent_window;
+
+		public GameView (Gtk.Window parent_window) {
+			this.parent_window = parent_window;
 			init_properties ();
 			init_board_grid ();
 			scores_holder = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
@@ -42,6 +45,12 @@ namespace FourK.Views {
 				}
 			}
 			board.set_board_state (board_state_strings);
+		}
+
+		public void show_game_over_dialog () {
+			Widgets.GameOverDialog game_over_dialog = new Widgets.GameOverDialog ();
+			game_over_dialog.transient_for = parent_window;
+			game_over_dialog.run ();
 		}
 
 		private void init_properties () {
