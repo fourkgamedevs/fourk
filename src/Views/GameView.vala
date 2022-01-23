@@ -12,8 +12,8 @@ namespace FourK.Views {
 			init_board_grid ();
 			scores_holder = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
 			scores_holder.set_vexpand (false);
-			high_score = new Widgets.ScoreBox ();
-			current_score = new Widgets.ScoreBox ();
+			high_score = new Widgets.ScoreBox ("High Score");
+			current_score = new Widgets.ScoreBox ("Score");
 			scores_holder.add (high_score);
 			scores_holder.add (current_score);
 			add (scores_holder);
@@ -23,12 +23,12 @@ namespace FourK.Views {
 			add (frame);
 		}
 
-		public void update_high_score () {
-
+		public void update_high_score (int score) {
+			high_score.set_score_label (score.to_string ());
 		}
 
-		public void update_current_score () {
-
+		public void update_current_score (int score) {
+			high_score.set_score_label (score.to_string ());
 		}
 
 		public void update_board (int[,] board_state ) {

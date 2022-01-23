@@ -40,6 +40,7 @@ namespace FourK.Controllers {
 			if(keyval == Gdk.Key.Down) {
 				game_model.move(Directions.DOWN);
 				game_view.update_board (game_model.get_board_state ());
+				game_view.update_current_score (69420);
 				return true;
 			}
 			return false;
@@ -49,17 +50,6 @@ namespace FourK.Controllers {
 		//	game_view.update_board (board_state);
 		}
 
-		private bool test_board_update () {
-			int[,] test_state = new int[4,4];
-			for (int r = 0; r < 4; r++) {
-				for (int c = 0; c < 4; c++) {
-					int val = GLib.Random.int_range(0, 15);
-					val = (int) GLib.Math.pow(2.0, (double)val);
-					test_state[c,r] = val;
-				}
-			}
-			game_view.update_board (test_state);
-			return true;
-		}
+
 	}
 }
