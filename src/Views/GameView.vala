@@ -2,12 +2,25 @@ namespace FourK.Views {
 	internal class GameView : Gtk.Box {
 		private Widgets.ScoreBox high_score;
 		private Widgets.ScoreBox current_score;
+		private Gtk.Box scores_holder;
+
 		private Widgets.BoardGrid board;
 		private Gtk.Frame frame;
 
 		public GameView () {
 			init_properties ();
 			init_board_grid ();
+			scores_holder = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
+			scores_holder.set_vexpand (false);
+			high_score = new Widgets.ScoreBox ();
+			current_score = new Widgets.ScoreBox ();
+			scores_holder.add (high_score);
+			scores_holder.add (current_score);
+			add (scores_holder);
+			var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+			sep.set_vexpand (true);
+			add (sep);
+			add (frame);
 		}
 
 		public void update_high_score () {
@@ -32,10 +45,12 @@ namespace FourK.Views {
 		}
 
 		private void init_properties () {
+			set_spacing(24);
 			set_vexpand (true);
 			set_hexpand (true);
 			set_valign (Gtk.Align.CENTER);
 			set_halign (Gtk.Align.CENTER);
+			orientation = Gtk.Orientation.VERTICAL;
 		}
 
 		private void init_board_grid () {
@@ -43,6 +58,9 @@ namespace FourK.Views {
 			frame.set_size_request (330,330);
 			frame.set_vexpand (false);
 			frame.set_hexpand (false);
+			set_valign (Gtk.Align.CENTER);
+			set_halign (Gtk.Align.CENTER);
+
 
 			frame.set_valign (Gtk.Align.CENTER);
 			frame.set_halign (Gtk.Align.CENTER);
@@ -53,7 +71,6 @@ namespace FourK.Views {
 
 			board = new Widgets.BoardGrid ();
 			frame.add (board);
-			add (frame);
 		}
 	}
 }
