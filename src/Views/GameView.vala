@@ -9,6 +9,9 @@ namespace FourK.Views {
 
 		private Gtk.Window parent_window;
 
+		public signal void new_game_requested ();
+		public signal void quit_game_requested ();
+
 		public GameView (Gtk.Window parent_window) {
 			this.parent_window = parent_window;
 			init_properties ();
@@ -57,8 +60,11 @@ namespace FourK.Views {
 				game_over_dialog.destroy ();
 			} else if (response_id == Gtk.ResponseType.ACCEPT) {
 				game_over_dialog.destroy ();
+				new_game_requested ();
+			} else if (response_id == Gtk.ResponseType.CLOSE) {
+				game_over_dialog.destroy ();
+				quit_game_requested ();
 			}
-
 		}
 
 		private void init_properties () {
