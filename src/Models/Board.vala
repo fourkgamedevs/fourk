@@ -35,6 +35,10 @@ namespace FourK.Models {
 			return board_state;
 		}
 
+		public bool[,] get_merged_tiles_state() {
+			return tile_merged_states;
+		}
+
 		public bool[] get_valid_moves () {
 			return valid_move_state;
 		}
@@ -88,7 +92,6 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
-			reset_tile_merge_states ();
 		}
 
 		public void shift_cols_down () {
@@ -98,7 +101,6 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
-			reset_tile_merge_states ();
 		}
 
 		public void shift_rows_right () {
@@ -108,7 +110,6 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
-			reset_tile_merge_states ();
 		}
 
 		public void shift_rows_left () {
@@ -118,10 +119,9 @@ namespace FourK.Models {
 				}
 			}
 			update_valid_moves ();
-			reset_tile_merge_states ();
 		}
 
-		private void reset_tile_merge_states () {
+		public void reset_tile_merge_states () {
 			for (int r = 0; r < 4; r++) {
 				for (int c = 0; c < 4; c++) {
 					tile_merged_states[c,r] = false;

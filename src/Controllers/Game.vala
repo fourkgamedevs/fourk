@@ -24,23 +24,25 @@ namespace FourK.Controllers {
 			if(keyval == Gdk.Key.Left) {
 				game_model.move(Directions.LEFT);
 				game_view.update_board (game_model.get_board_state ());
-
+				game_view.update_current_score (game_model.get_current_score ());
 				return true;
 			}
 			if(keyval == Gdk.Key.Right) {
 				game_model.move(Directions.RIGHT);
 				game_view.update_board (game_model.get_board_state ());
+				game_view.update_current_score (game_model.get_current_score ());
 				return true;
 			}
 			if(keyval == Gdk.Key.Up) {
 				game_model.move(Directions.UP);
 				game_view.update_board (game_model.get_board_state ());
+				game_view.update_current_score (game_model.get_current_score ());
 				return true;
 			}
 			if(keyval == Gdk.Key.Down) {
 				game_model.move(Directions.DOWN);
 				game_view.update_board (game_model.get_board_state ());
-				game_view.update_current_score (69420);
+				game_view.update_current_score (game_model.get_current_score ());
 				return true;
 			}
 			return false;

@@ -28,7 +28,7 @@ namespace FourK.Views {
 		}
 
 		public void update_current_score (int score) {
-			high_score.set_score_label (score.to_string ());
+			current_score.set_score_label (score.to_string ());
 		}
 
 		public void update_board (int[,] board_state ) {
