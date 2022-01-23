@@ -128,12 +128,12 @@ namespace FourK.Models {
 				}
 			}
 		}
-		private void reset_valid_moves ();
+		private void reset_valid_moves (){
 			for (int i = 0; i < 4; i++) {
 				valid_move_state[i] = true;
 			}
 		}
-		
+
 		private void update_valid_moves () {
 			for (int i = 0; i < 4; i++) {
 				valid_move_state[i] = false;
