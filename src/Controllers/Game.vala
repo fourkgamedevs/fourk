@@ -7,24 +7,16 @@ namespace FourK.Controllers {
 		private int next_milestone_value;
 		private string next_milestone_message;
 
-		public Game (Hdy.ApplicationWindow window) {
-			game_view = new Views.GameView (window);
-			game_model = new Models.Game ();
+		public Game (Models.Game model, Views.GameView view, Gtk.EventControllerKey controller) {
+			game_view = view;
+			game_model = model;
 
-			game_model.board_updated.connect (on_model_board_updated);
 			game_view.new_game_requested.connect (on_view_new_game_requested);
 
-			key_event_controller = new Gtk.EventControllerKey (window);
+			key_event_controller = controller;
 			key_event_controller.key_pressed.connect (on_key_released);
 
-			game_model.start_new_game ();
-			reset_milestone_data ();
-
 			update_game_view ();
-		}
-
-		public Views.GameView get_game_view () {
-			return game_view;
 		}
 
 		public bool on_key_released (uint keyval, uint keycode, Gdk.ModifierType state) {
@@ -147,10 +139,6 @@ namespace FourK.Controllers {
 		private void reset_milestone_data () {
 			next_milestone_value = 128;
 			next_milestone_message = "A Good Start!";
-		}
-
-		private void on_model_board_updated (int[,] board_state) {
-		//	game_view.update_board (board_state);
 		}
 
 		private void on_view_new_game_requested () {

@@ -11,5 +11,10 @@
 			<summary>Window position.</summary>
 			<description>Saved position of main calculator window.</description>
 		</key>
+		<key name="highest-score" type="i">
+			<default>0</default>
+			<summary>highest score</summary>
+			<description>The highest score reached</description>
+		</key>
 	</schema>
 </schemalist>

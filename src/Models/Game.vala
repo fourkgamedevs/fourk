@@ -8,9 +8,12 @@ namespace FourK.Models {
 
 		public signal void board_updated (int[,] board_state);
 
+		private GLib.Settings settings;
+
 		public Game () {
 			board = new Board ();
-			high_score = 0;
+			settings = new GLib.Settings ("com.github.keilith-l.fourk");
+			load_state ();
 			start_new_game ();
 		}
 
@@ -67,6 +70,14 @@ namespace FourK.Models {
 			return board.get_largest_tile_value ();
 		}
 
+		public void load_state () {
+			settings.get("highest-score", "i", out high_score);
+		}
+
+		public void save_state () {
+			settings.set("highest-score", "i", high_score);
+		}
+
 		private void calculate_current_score () {
 			int score = current_score;
 			int[,] board_state = board.get_state();
@@ -83,6 +94,7 @@ namespace FourK.Models {
 			current_score = score;
 			if (current_score > high_score) {
 				high_score = current_score;
+				save_state ();
 			}
 			board.reset_tile_merge_states ();
 		}

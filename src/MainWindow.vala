@@ -3,7 +3,6 @@ namespace FourK {
 		private Hdy.HeaderBar header_bar;
 		private Hdy.Deck deck;
 		private Views.GameView game_view;
-		private Controllers.Game game_controller;
 
 		private GLib.Settings settings;
 		private int window_x;
@@ -24,10 +23,6 @@ namespace FourK {
 			var global_grid = new Gtk.Grid ();
 			global_grid.orientation = Gtk.Orientation.VERTICAL;
 
-			game_controller = new Controllers.Game (this);
-			game_view = game_controller.get_game_view ();
-			game_view.quit_game_requested.connect (on_game_view_quit_requested);
-
 			setup_header_bar ();
 			setup_deck ();
 			global_grid.set_vexpand (true);
@@ -45,6 +40,16 @@ namespace FourK {
 			delete_event.connect (on_delete_event);
 		}
 
+		public void add_view (Views.GameView view) {
+			if (game_view != null) {
+				return;
+			}
+			
+			game_view = view;
+			game_view.quit_game_requested.connect (on_game_view_quit_requested);
+			deck.add(game_view);
+		}
+
 		private void setup_header_bar () {
 			header_bar = new Hdy.HeaderBar (){
 				hexpand = true,
@@ -59,7 +64,6 @@ namespace FourK {
 			deck.set_vexpand (true);
 			deck.set_valign (Gtk.Align.START);
 			deck.set_transition_type (Hdy.DeckTransitionType.UNDER);
-			deck.add (game_view);
 		}
 
 		private bool on_delete_event (Gdk.EventAny event) {

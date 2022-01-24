@@ -1,5 +1,5 @@
 namespace FourK.Views {
-	internal class GameView : Gtk.Overlay {
+	public class GameView : Gtk.Overlay {
 		private Gtk.Box layout;
 		private Widgets.ScoreBox high_score;
 		private Widgets.ScoreBox current_score;
