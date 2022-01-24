@@ -63,7 +63,7 @@ namespace FourK.Models {
 			return game_over_state;
 		}
 
-		public int get_larget_tile () {
+		public int get_largest_tile () {
 			return board.get_largest_tile_value ();
 		}
 

@@ -4,7 +4,8 @@ namespace FourK.Controllers {
 		private Models.Game game_model;
 		private Gtk.EventControllerKey key_event_controller;
 
-		private int last_largest_value;
+		private int next_milestone_value;
+		private string next_milestone_message;
 
 		public Game (Hdy.ApplicationWindow window) {
 			game_view = new Views.GameView (window);
@@ -15,9 +16,11 @@ namespace FourK.Controllers {
 
 			key_event_controller = new Gtk.EventControllerKey (window);
 			key_event_controller.key_pressed.connect (on_key_released);
+
 			game_model.start_new_game ();
-			int[,] board_state = game_model.get_board_state ();
-			game_view.update_board (board_state);
+			reset_milestone_data ();
+
+			update_game_view ();
 		}
 
 		public Views.GameView get_game_view () {
@@ -27,12 +30,10 @@ namespace FourK.Controllers {
 		public bool on_key_released (uint keyval, uint keycode, Gdk.ModifierType state) {
 			if(keyval == Gdk.Key.Left) {
 				game_model.move(Directions.LEFT);
-				game_view.update_board (game_model.get_board_state ());
-				game_view.update_current_score (game_model.get_current_score ());
-				game_view.update_high_score (game_model.get_high_score ());
-				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
-					last_largest_value = 64;
-					game_view.show_toast ("64 Reached!");
+				update_game_view ();
+
+				if (game_model.get_largest_tile () == next_milestone_value) {
+					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
@@ -42,12 +43,10 @@ namespace FourK.Controllers {
 			}
 			if(keyval == Gdk.Key.Right) {
 				game_model.move(Directions.RIGHT);
-				game_view.update_board (game_model.get_board_state ());
-				game_view.update_current_score (game_model.get_current_score ());
-				game_view.update_high_score (game_model.get_high_score ());
-				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
-					last_largest_value = 64;
-					game_view.show_toast ("64 Reached!");
+				update_game_view ();
+
+				if (game_model.get_largest_tile () == next_milestone_value) {
+					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
@@ -56,12 +55,10 @@ namespace FourK.Controllers {
 			}
 			if(keyval == Gdk.Key.Up) {
 				game_model.move(Directions.UP);
-				game_view.update_board (game_model.get_board_state ());
-				game_view.update_current_score (game_model.get_current_score ());
-				game_view.update_high_score (game_model.get_high_score ());
-				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
-					last_largest_value = 64;
-					game_view.show_toast ("64 Reached!");
+				update_game_view ();
+
+				if (game_model.get_largest_tile () == next_milestone_value) {
+					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
@@ -70,12 +67,10 @@ namespace FourK.Controllers {
 			}
 			if(keyval == Gdk.Key.Down) {
 				game_model.move(Directions.DOWN);
-				game_view.update_board (game_model.get_board_state ());
-				game_view.update_current_score (game_model.get_current_score ());
-				game_view.update_high_score (game_model.get_high_score ());
-				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
-					last_largest_value = 64;
-					game_view.show_toast ("64 Reached!");
+				update_game_view ();
+
+				if (game_model.get_largest_tile () == next_milestone_value) {
+					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
@@ -85,17 +80,84 @@ namespace FourK.Controllers {
 			return false;
 		}
 
+		private void show_milestone () {
+			update_next_milestone_value (next_milestone_value);
+			game_view.show_toast (next_milestone_message);
+			update_next_milestone_message ();
+		}
+
+		private void update_game_view () {
+			game_view.update_board (game_model.get_board_state ());
+			game_view.update_current_score (game_model.get_current_score ());
+			game_view.update_high_score (game_model.get_high_score ());
+		}
+
+		private void update_next_milestone_value (int current_value) {
+			switch (current_value) {
+				case 128:
+					next_milestone_value = 256 ;
+					break;
+				case 256:
+					next_milestone_value = 512 ;
+					break;
+				case 512:
+					next_milestone_value = 1024 ;
+					break;
+				case 1024:
+					next_milestone_value = 2048;
+					break;
+				case 2048:
+					next_milestone_value = 4096;
+					break;
+				case 4096:
+					next_milestone_value = 8092;
+					break;
+				case 8092:
+					next_milestone_value = -1 ;
+				 	break;
+			}
+		}
+
+		private void update_next_milestone_message () {
+			switch (next_milestone_value) {
+				case 128:
+					next_milestone_message = "128";
+					break;
+				case 256:
+					next_milestone_message = "256";
+					break;
+				case 512:
+					next_milestone_message = "512";
+					break;
+				case 1024:
+					next_milestone_message = "1024";
+					break;
+				case 2048:
+					next_milestone_message = "2048";
+					break;
+				case 4096:
+					next_milestone_message = "4096";
+					break;
+				case 8092:
+					next_milestone_message = "8092";
+				 	break;
+			}
+		}
+
+		private void reset_milestone_data () {
+			next_milestone_value = 128;
+			next_milestone_message = "128";
+		}
+
 		private void on_model_board_updated (int[,] board_state) {
 		//	game_view.update_board (board_state);
 		}
 
 		private void on_view_new_game_requested () {
+			reset_milestone_data ();
 			game_model.start_new_game ();
 			game_view.update_board (game_model.get_board_state ());
 			game_view.update_current_score (game_model.get_current_score ());
-			last_largest_value = 0;
 		}
-
-
 	}
 }
