@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema path="/com/github/keilith-l/fourk/" id="com.github.keilith-l.fourk">
+		<key name="test-setting" type="b">
+			<default>false</default>
+			<summary>A useless test setting</summary>
+			<description>Whether to print or not</description>
+		</key>
+		<key name="window-position" type="(ii)">
+			<default>(-1, -1)</default>
+			<summary>Window position.</summary>
+			<description>Saved position of main calculator window.</description>
+		</key>
+	</schema>
+</schemalist>

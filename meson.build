@@ -1,4 +1,4 @@
-project('com.github.keilith.fourk', 'vala', 'c')
+project('com.github.keilith-l.fourk', 'vala', 'c')
 
 executable(
 	meson.project_name(),
@@ -34,3 +34,7 @@ install_data(
 	install_dir: get_option('datadir') / 'metainfo',
 	rename: meson.project_name() + '.metainfo.xml'
 )
+
+meson.add_install_script('meson/post_install.py')
+
+subdir('data')
