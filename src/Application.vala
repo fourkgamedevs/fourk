@@ -12,15 +12,7 @@ namespace FourK{
 		protected override void activate () {
 			setup_color_preference ();
 			setup_custom_resources ();
-
-			var css_provider = new Gtk.CssProvider ();
-			try {
-				css_provider.load_from_path("../src/Widgets/Tile.css");
-			} catch (GLib.Error e) {
-				warning ("Could not get css provider");
-			}
-
-			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+			setup_custom_css ();
 
 			if (get_windows().length() > 0) {
 				app_window.present();
@@ -44,6 +36,17 @@ namespace FourK{
 
 		private void setup_custom_resources () {
 			Gtk.IconTheme.get_default ().add_resource_path("/com/github/keilith-l/fourk");
+		}
+
+		private void setup_custom_css () {
+			var css_provider = new Gtk.CssProvider ();
+			try {
+				css_provider.load_from_path("../src/Widgets/Tile.css");
+			} catch (GLib.Error e) {
+				warning ("Could not get css provider");
+			}
+
+			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 		}
 
 		public static int main (string[] args) {
