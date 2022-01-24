@@ -26,6 +26,7 @@ namespace FourK {
 
 			setup_header_bar ();
 			setup_deck ();
+			global_grid.set_vexpand (true);
 
 			global_grid.add (header_bar);
 			global_grid.add (deck);
@@ -43,6 +44,8 @@ namespace FourK {
 
 		private void setup_deck () {
 			deck = new Hdy.Deck ();
+			deck.set_vexpand (true);
+			deck.set_valign (Gtk.Align.START);
 			deck.set_transition_type (Hdy.DeckTransitionType.UNDER);
 			deck.add (game_view);
 		}

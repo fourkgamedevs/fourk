@@ -4,6 +4,8 @@ namespace FourK.Controllers {
 		private Models.Game game_model;
 		private Gtk.EventControllerKey key_event_controller;
 
+		private int last_largest_value;
+
 		public Game (Hdy.ApplicationWindow window) {
 			game_view = new Views.GameView (window);
 			game_model = new Models.Game ();
@@ -28,7 +30,10 @@ namespace FourK.Controllers {
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
 				game_view.update_high_score (game_model.get_high_score ());
-
+				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
+					last_largest_value = 64;
+					game_view.show_toast ("64 Reached!");
+				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
@@ -40,7 +45,10 @@ namespace FourK.Controllers {
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
 				game_view.update_high_score (game_model.get_high_score ());
-
+				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
+					last_largest_value = 64;
+					game_view.show_toast ("64 Reached!");
+				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
@@ -51,7 +59,10 @@ namespace FourK.Controllers {
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
 				game_view.update_high_score (game_model.get_high_score ());
-
+				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
+					last_largest_value = 64;
+					game_view.show_toast ("64 Reached!");
+				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
@@ -62,7 +73,10 @@ namespace FourK.Controllers {
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
 				game_view.update_high_score (game_model.get_high_score ());
-
+				if (game_model.get_larget_tile () == 64 && last_largest_value != game_model.get_larget_tile ()) {
+					last_largest_value = 64;
+					game_view.show_toast ("64 Reached!");
+				}
 				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
@@ -79,6 +93,7 @@ namespace FourK.Controllers {
 			game_model.start_new_game ();
 			game_view.update_board (game_model.get_board_state ());
 			game_view.update_current_score (game_model.get_current_score ());
+			last_largest_value = 0;
 		}
 
 

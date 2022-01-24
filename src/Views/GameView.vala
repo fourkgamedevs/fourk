@@ -1,5 +1,6 @@
 namespace FourK.Views {
-	internal class GameView : Gtk.Box {
+	internal class GameView : Gtk.Overlay {
+		private Gtk.Box layout;
 		private Widgets.ScoreBox high_score;
 		private Widgets.ScoreBox current_score;
 		private Gtk.Box scores_holder;
@@ -8,25 +9,33 @@ namespace FourK.Views {
 		private Gtk.Frame frame;
 
 		private Gtk.Window parent_window;
+		private Granite.Widgets.Toast toast;
 
 		public signal void new_game_requested ();
 		public signal void quit_game_requested ();
 
 		public GameView (Gtk.Window parent_window) {
+			layout = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 			this.parent_window = parent_window;
 			init_properties ();
 			init_board_grid ();
+
+			toast = new Granite.Widgets.Toast ("askdjfh");
+			add_overlay (toast);
+
 			scores_holder = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 8);
-			scores_holder.set_vexpand (false);
+			scores_holder.set_vexpand (true);
+
 			high_score = new Widgets.ScoreBox ("High Score");
 			current_score = new Widgets.ScoreBox ("Score");
 			scores_holder.add (high_score);
 			scores_holder.add (current_score);
-			add (scores_holder);
+			layout.add (scores_holder);
 			var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 			sep.set_vexpand (true);
-			add (sep);
-			add (frame);
+			layout.add (sep);
+			layout.add (frame);
+			add(layout);
 		}
 
 		public void update_high_score (int score) {
@@ -35,6 +44,13 @@ namespace FourK.Views {
 
 		public void update_current_score (int score) {
 			current_score.set_score_label (score.to_string ());
+		}
+
+		public void show_toast (string message) {
+			toast.title = message;
+
+
+			toast.send_notification ();
 		}
 
 		public void update_board (int[,] board_state ) {
@@ -67,12 +83,15 @@ namespace FourK.Views {
 		}
 
 		private void init_properties () {
-			set_spacing(24);
-			set_vexpand (true);
-			set_hexpand (true);
+			set_vexpand(true);
 			set_valign (Gtk.Align.CENTER);
-			set_halign (Gtk.Align.CENTER);
-			orientation = Gtk.Orientation.VERTICAL;
+			layout.set_margin_top (56);
+			layout.set_spacing(24);
+			layout.set_vexpand (true);
+			layout.set_hexpand (true);
+			layout.set_valign (Gtk.Align.CENTER);
+			layout.set_halign (Gtk.Align.CENTER);
+			layout.orientation = Gtk.Orientation.VERTICAL;
 		}
 
 		private void init_board_grid () {
