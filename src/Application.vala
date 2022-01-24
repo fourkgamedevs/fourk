@@ -20,8 +20,9 @@ namespace FourK{
 			}
 
 			app_window = new MainWindow (this);
-
 			app_window.show_all ();
+
+		//	setup_state_saving ();
 		}
 
 		private void setup_color_preference () {
@@ -47,6 +48,11 @@ namespace FourK{
 			}
 
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+		}
+
+		private void setup_state_saving () {
+			var settings = new GLib.Settings ("com.github.keilith-l.fourk");
+			//settings.bind ("position", app_window.swi, "active", GLib.SettingsBindFlags.DEFAULT);
 		}
 
 		public static int main (string[] args) {
