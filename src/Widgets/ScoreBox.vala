@@ -1,22 +1,22 @@
 namespace FourK.Widgets {
 	internal class ScoreBox : Gtk.Box {
-		private Gtk.Label name;
+		private Gtk.Label score_name;
 		private Gtk.Grid score_holder;
 		private Gtk.Label score_label;
 
-		public ScoreBox (string score_name) {
+		public ScoreBox (string scorebox_name) {
 			init_properties ();
 
 
-			name = new Gtk.Label (score_name);
-			name.margin = 8;
-			name.margin_bottom = 2;
-			var context = name.get_style_context ();
+			score_name = new Gtk.Label (scorebox_name);
+			score_name.margin = 8;
+			score_name.margin_bottom = 2;
+			var context = score_name.get_style_context ();
 			context.add_class (Granite.STYLE_CLASS_H3_LABEL);
 			context.add_class (Granite.STYLE_CLASS_ACCENT);
 
-			name.set_halign (Gtk.Align.START);
-			name.set_valign (Gtk.Align.CENTER);
+			score_name.set_halign (Gtk.Align.START);
+			score_name.set_valign (Gtk.Align.CENTER);
 			score_label = new Gtk.Label("----");
 			score_label.set_halign (Gtk.Align.CENTER);
 			score_label.margin = (8);
@@ -34,7 +34,7 @@ namespace FourK.Widgets {
 			score_holder.set_vexpand (true);
 			var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 			sep.set_vexpand (true);
-			add (name);
+			add (score_name);
 			add (sep);
 			add (score_holder);
 
@@ -53,8 +53,8 @@ namespace FourK.Widgets {
 
 			set_margin_bottom (4);
 			set_margin_top (4);
-			set_margin_right (4);
-			set_margin_left (4);
+			set_margin_end (4);
+			set_margin_start (4);
 			set_valign (Gtk.Align.CENTER);
 			set_halign (Gtk.Align.CENTER);
 			set_vexpand (false);

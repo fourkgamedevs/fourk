@@ -21,16 +21,6 @@ namespace FourK.Models {
 			reset_valid_moves ();
 		}
 
-		public void print_board () {
-			for (int r = 0; r < 4; r++) {
-				for (int c = 0; c < 4; c++) {
-					print(board_state[c,r].to_string () + "|");
-				}
-				print("\n");
-			}
-			print("\n");
-		}
-
 		public int[,] get_state () {
 			return board_state;
 		}
@@ -279,8 +269,6 @@ namespace FourK.Models {
 			int[] position = new int[2];
 			position[0] = index_c;
 			position[1] = index_r;
-
-			int tile_value = board_state[index_c, index_r];
 
 			switch (direction) {
 				case FourK.Directions.RIGHT:

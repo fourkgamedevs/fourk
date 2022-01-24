@@ -10,13 +10,12 @@ namespace FourK.Controllers {
 
 			game_model.board_updated.connect (on_model_board_updated);
 			game_view.new_game_requested.connect (on_view_new_game_requested);
-			
+
 			key_event_controller = new Gtk.EventControllerKey (window);
 			key_event_controller.key_pressed.connect (on_key_released);
 			game_model.start_new_game ();
 			int[,] board_state = game_model.get_board_state ();
 			game_view.update_board (board_state);
-			//test_board_update ();
 		}
 
 		public Views.GameView get_game_view () {
@@ -28,25 +27,36 @@ namespace FourK.Controllers {
 				game_model.move(Directions.LEFT);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
+				if(game_model.is_game_over()) {
+					game_view.show_game_over_dialog ();
+				}
 				return true;
 			}
 			if(keyval == Gdk.Key.Right) {
 				game_model.move(Directions.RIGHT);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
+				if(game_model.is_game_over()) {
+					game_view.show_game_over_dialog ();
+				}
 				return true;
 			}
 			if(keyval == Gdk.Key.Up) {
 				game_model.move(Directions.UP);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
+				if(game_model.is_game_over()) {
+					game_view.show_game_over_dialog ();
+				}
 				return true;
 			}
 			if(keyval == Gdk.Key.Down) {
 				game_model.move(Directions.DOWN);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
-				game_view.show_game_over_dialog ();
+				if(game_model.is_game_over()) {
+					game_view.show_game_over_dialog ();
+				}
 				return true;
 			}
 			return false;

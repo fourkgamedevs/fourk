@@ -3,6 +3,7 @@ namespace FourK.Models {
 		private Models.Board board;
 		private int move_counter;
 		private int current_score;
+		private bool game_over_state;
 
 		public signal void board_updated (int[,] board_state);
 
@@ -15,11 +16,12 @@ namespace FourK.Models {
 			board.clear_board ();
 			reset_move_counter ();
 			current_score = 0;
+			game_over_state = false;
 			board.spawn_first_tile ();
 		}
 
 		public void move (FourK.Directions direction) {
-			if (board.get_valid_moves ()[direction] == false) {
+			if (!is_move_valid(direction)) {
 				return;
 			}
 			switch (direction) {
@@ -39,6 +41,7 @@ namespace FourK.Models {
 			calculate_current_score ();
 			increment_move_counter ();
 			board.spawn_tile ();
+			update_game_over_state ();
 			return;
 		}
 
@@ -48,6 +51,10 @@ namespace FourK.Models {
 
 		public int get_current_score () {
 			return current_score;
+		}
+
+		public bool is_game_over () {
+			return game_over_state;
 		}
 
 		private void calculate_current_score () {
@@ -75,8 +82,21 @@ namespace FourK.Models {
 			move_counter = 0;
 		}
 
-		private bool is_move_valid (FourK.Directions directions) {
-			return false;
+		private void update_game_over_state () {
+			var valid_moves = board.get_valid_moves ();
+			if (valid_moves[Directions.LEFT] == true ||
+				valid_moves[Directions.RIGHT] == true ||
+				valid_moves[Directions.UP] == true ||
+				valid_moves[Directions.DOWN] == true
+			) {
+				game_over_state = false;
+			} else {
+				game_over_state = true;
+			}
+		}
+
+		private bool is_move_valid (FourK.Directions direction) {
+			return board.get_valid_moves ()[direction];
 		}
 	}
 }

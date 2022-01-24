@@ -30,8 +30,8 @@ namespace FourK.Widgets {
 			set_row_spacing (8);
 			set_margin_bottom (4);
 			set_margin_top (4);
-			set_margin_right (4);
-			set_margin_left (4);
+			set_margin_end (4);
+			set_margin_start (4);
 			set_valign (Gtk.Align.CENTER);
 			set_halign (Gtk.Align.CENTER);
 
