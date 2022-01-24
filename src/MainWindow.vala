@@ -22,6 +22,7 @@ namespace FourK {
 
 			game_controller = new Controllers.Game (this);
 			game_view = game_controller.get_game_view ();
+			game_view.quit_game_requested.connect (on_game_view_quit_requested);
 
 			setup_header_bar ();
 			setup_deck ();
@@ -44,6 +45,10 @@ namespace FourK {
 			deck = new Hdy.Deck ();
 			deck.set_transition_type (Hdy.DeckTransitionType.UNDER);
 			deck.add (game_view);
+		}
+
+		private void on_game_view_quit_requested () {
+			application.quit ();
 		}
 	}
 }

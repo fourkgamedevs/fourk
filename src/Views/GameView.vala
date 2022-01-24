@@ -54,7 +54,6 @@ namespace FourK.Views {
 			Widgets.GameOverDialog game_over_dialog = new Widgets.GameOverDialog ();
 			game_over_dialog.transient_for = parent_window;
 
-
 			int response_id = game_over_dialog.run ();
 			if (response_id == Gtk.ResponseType.CANCEL) {
 				game_over_dialog.destroy ();

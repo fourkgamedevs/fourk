@@ -7,7 +7,10 @@ namespace FourK.Controllers {
 		public Game (Hdy.ApplicationWindow window) {
 			game_view = new Views.GameView (window);
 			game_model = new Models.Game ();
+
 			game_model.board_updated.connect (on_model_board_updated);
+			game_view.new_game_requested.connect (on_view_new_game_requested);
+			
 			key_event_controller = new Gtk.EventControllerKey (window);
 			key_event_controller.key_pressed.connect (on_key_released);
 			game_model.start_new_game ();
@@ -51,6 +54,12 @@ namespace FourK.Controllers {
 
 		private void on_model_board_updated (int[,] board_state) {
 		//	game_view.update_board (board_state);
+		}
+
+		private void on_view_new_game_requested () {
+			game_model.start_new_game ();
+			game_view.update_board (game_model.get_board_state ());
+			game_view.update_current_score (game_model.get_current_score ());
 		}
 
 
