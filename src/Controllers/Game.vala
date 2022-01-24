@@ -121,32 +121,32 @@ namespace FourK.Controllers {
 		private void update_next_milestone_message () {
 			switch (next_milestone_value) {
 				case 128:
-					next_milestone_message = "128";
+					next_milestone_message = "A Good Start!";
 					break;
 				case 256:
-					next_milestone_message = "256";
+					next_milestone_message = "Keep It UP!";
 					break;
 				case 512:
-					next_milestone_message = "512";
+					next_milestone_message = "Hi Five(12)! ";
 					break;
 				case 1024:
-					next_milestone_message = "1024";
+					next_milestone_message = "Amazing Work!";
 					break;
 				case 2048:
-					next_milestone_message = "2048";
+					next_milestone_message = "Halfway There!";
 					break;
 				case 4096:
-					next_milestone_message = "4096";
+					next_milestone_message = "You Did It!";
 					break;
 				case 8092:
-					next_milestone_message = "8092";
+					next_milestone_message = "Unbelievable!";
 				 	break;
 			}
 		}
 
 		private void reset_milestone_data () {
 			next_milestone_value = 128;
-			next_milestone_message = "128";
+			next_milestone_message = "A Good Start!";
 		}
 
 		private void on_model_board_updated (int[,] board_state) {
