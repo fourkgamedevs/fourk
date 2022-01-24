@@ -33,6 +33,18 @@ namespace FourK.Models {
 			return valid_move_state;
 		}
 
+		public int get_largest_tile_value () {
+			int result = 0;
+			for (int r = 0; r < 4; r++) {
+				for (int c = 0; c < 4; c++) {
+					if (board_state[c,r] > result) {
+						result = board_state[c,r];
+					}
+				}
+			}
+			return result;
+		}
+
 		public void spawn_tile () {
 			int val = GLib.Random.int_range(1,3);
 			val = val*2;

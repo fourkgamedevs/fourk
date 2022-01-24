@@ -63,6 +63,10 @@ namespace FourK.Models {
 			return game_over_state;
 		}
 
+		public int get_largest_tile () {
+			return board.get_largest_tile_value ();
+		}
+
 		private void calculate_current_score () {
 			int score = current_score;
 			int[,] board_state = board.get_state();
