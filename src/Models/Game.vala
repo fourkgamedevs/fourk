@@ -3,12 +3,14 @@ namespace FourK.Models {
 		private Models.Board board;
 		private int move_counter;
 		private int current_score;
+		private int high_score;
 		private bool game_over_state;
 
 		public signal void board_updated (int[,] board_state);
 
 		public Game () {
 			board = new Board ();
+			high_score = 0;
 			start_new_game ();
 		}
 
@@ -53,6 +55,10 @@ namespace FourK.Models {
 			return current_score;
 		}
 
+		public int get_high_score () {
+			return high_score;
+		}
+
 		public bool is_game_over () {
 			return game_over_state;
 		}
@@ -71,6 +77,9 @@ namespace FourK.Models {
 			}
 
 			current_score = score;
+			if (current_score > high_score) {
+				high_score = current_score;
+			}
 			board.reset_tile_merge_states ();
 		}
 

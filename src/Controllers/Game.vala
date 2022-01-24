@@ -27,16 +27,21 @@ namespace FourK.Controllers {
 				game_model.move(Directions.LEFT);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
-				if(game_model.is_game_over()) {
+				game_view.update_high_score (game_model.get_high_score ());
+
+				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
+
 				return true;
 			}
 			if(keyval == Gdk.Key.Right) {
 				game_model.move(Directions.RIGHT);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
-				if(game_model.is_game_over()) {
+				game_view.update_high_score (game_model.get_high_score ());
+
+				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
 				return true;
@@ -45,7 +50,9 @@ namespace FourK.Controllers {
 				game_model.move(Directions.UP);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
-				if(game_model.is_game_over()) {
+				game_view.update_high_score (game_model.get_high_score ());
+
+				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
 				return true;
@@ -54,7 +61,9 @@ namespace FourK.Controllers {
 				game_model.move(Directions.DOWN);
 				game_view.update_board (game_model.get_board_state ());
 				game_view.update_current_score (game_model.get_current_score ());
-				if(game_model.is_game_over()) {
+				game_view.update_high_score (game_model.get_high_score ());
+
+				if (game_model.is_game_over()) {
 					game_view.show_game_over_dialog ();
 				}
 				return true;
