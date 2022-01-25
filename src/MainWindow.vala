@@ -1,6 +1,7 @@
 namespace FourK {
 	public class MainWindow : Hdy.ApplicationWindow {
 		private Hdy.HeaderBar header_bar;
+		private Gtk.Button new_game_button;
 		private Hdy.Deck deck;
 		private Views.GameView game_view;
 
@@ -44,7 +45,7 @@ namespace FourK {
 			if (game_view != null) {
 				return;
 			}
-			
+
 			game_view = view;
 			game_view.quit_game_requested.connect (on_game_view_quit_requested);
 			deck.add(game_view);
@@ -54,9 +55,30 @@ namespace FourK {
 			header_bar = new Hdy.HeaderBar (){
 				hexpand = true,
 				has_subtitle = false,
-				show_close_button = true,
-				title = "Fourk"
+				show_close_button = true
+				//title = "Fourk"
 			};
+			var title = new Gtk.Label ("FourK");
+			title.get_style_context ().add_class(Granite.STYLE_CLASS_ACCENT);
+			title.get_style_context ().add_class(Granite.STYLE_CLASS_H3_LABEL);
+
+			header_bar.set_custom_title (title);
+
+			new_game_button = new Gtk.Button.from_icon_name ("system-reboot-symbolic", Gtk.IconSize.BUTTON);
+			new_game_button.set_vexpand (false);
+			new_game_button.set_hexpand (true);
+
+			new_game_button.set_valign (Gtk.Align.CENTER);
+			new_game_button.set_halign (Gtk.Align.END);
+
+			new_game_button.set_can_focus (false);
+			//new_game_button.get_style_context ().add_class (Granite.STYLE_CLASS_ACCENT);
+			//new_game_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+			new_game_button.set_relief (Gtk.ReliefStyle.NORMAL);
+			new_game_button.clicked.connect (() => {game_view.new_game_requested();});
+
+			header_bar.pack_end (new_game_button);
+
 		}
 
 		private void setup_deck () {
