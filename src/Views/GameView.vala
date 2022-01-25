@@ -86,6 +86,7 @@ namespace FourK.Views {
 		private void init_properties () {
 			set_vexpand(true);
 			set_valign (Gtk.Align.CENTER);
+			set_margin_bottom (12);
 			layout.set_margin_top (56);
 			layout.set_spacing(24);
 			layout.set_vexpand (true);

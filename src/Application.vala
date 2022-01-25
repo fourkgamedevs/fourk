@@ -7,6 +7,7 @@ namespace FourK{
 		private Views.GameView game_view;
 
 		private Gtk.EventControllerKey key_controller;
+
 		public Application () {
 			Object (
 				application_id: "com.github.keilith-l.fourk",
@@ -35,8 +36,6 @@ namespace FourK{
 
 			app_window.add_view (game_view);
 			app_window.show_all ();
-
-		//	setup_state_saving ();
 		}
 
 		private void setup_color_preference () {
@@ -62,11 +61,6 @@ namespace FourK{
 			}
 
 			Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-		}
-
-		private void setup_state_saving () {
-			var settings = new GLib.Settings ("com.github.keilith-l.fourk");
-			//settings.bind ("position", app_window.swi, "active", GLib.SettingsBindFlags.DEFAULT);
 		}
 
 		public static int main (string[] args) {
