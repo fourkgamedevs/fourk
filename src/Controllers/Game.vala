@@ -16,7 +16,13 @@ namespace FourK.Controllers {
 			key_event_controller = controller;
 			key_event_controller.key_pressed.connect (on_key_released);
 
+			if (game_model.get_largest_tile () < 128) {
+				reset_milestone_data ();
+			}
 			update_game_view ();
+			if (game_model.is_game_over()) {
+				GLib.Timeout.add_seconds_full (GLib.Priority.DEFAULT, 1, game_view.show_game_over_dialog);
+			}
 		}
 
 		public bool on_key_released (uint keyval, uint keycode, Gdk.ModifierType state) {
@@ -82,6 +88,7 @@ namespace FourK.Controllers {
 			game_view.update_board (game_model.get_board_state ());
 			game_view.update_current_score (game_model.get_current_score ());
 			game_view.update_high_score (game_model.get_high_score ());
+
 		}
 
 		private void update_next_milestone_value (int current_value) {

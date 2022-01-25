@@ -3,12 +3,35 @@ namespace FourK.Models {
 		private int[,] board_state;
 		private bool[,] tile_merged_states;
 		private bool[] valid_move_state;
+		private GLib.Settings settings;
 
 		public Board () {
 			tile_merged_states = new bool[4,4];
 			board_state = new int[4,4];
 			valid_move_state = new bool[4];
-			clear_board ();
+			settings = new GLib.Settings ("com.github.keilith-l.fourk");
+			load_state ();
+		}
+
+		public void load_state () {
+			settings.get("board-state-0", "(iiii)", out board_state[0,0],out board_state[1,0],out board_state[2,0],out board_state[3,0] );
+			settings.get("board-state-1", "(iiii)", out board_state[0,1],out board_state[1,1],out board_state[2,1],out board_state[3,1] );
+			settings.get("board-state-2", "(iiii)", out board_state[0,2],out board_state[1,2],out board_state[2,2],out board_state[3,2] );
+			settings.get("board-state-3", "(iiii)", out board_state[0,3],out board_state[1,3],out board_state[2,3],out board_state[3,3] );
+			update_valid_moves ();
+			reset_tile_merge_states ();
+			if (get_largest_tile_value () == 0) {
+				clear_board ();
+				spawn_first_tile ();
+			}
+			//settings.get("current-score", "i", out current_score);
+		}
+
+		public void save_state () {
+			settings.set("board-state-0", "(iiii)", board_state[0,0], board_state[1,0], board_state[2,0], board_state[3,0] );
+			settings.set("board-state-1", "(iiii)", board_state[0,1], board_state[1,1], board_state[2,1], board_state[3,1] );
+			settings.set("board-state-2", "(iiii)", board_state[0,2], board_state[1,2], board_state[2,2], board_state[3,2] );
+			settings.set("board-state-3", "(iiii)", board_state[0,3], board_state[1,3], board_state[2,3], board_state[3,3] );
 		}
 
 		public void clear_board () {
@@ -77,6 +100,7 @@ namespace FourK.Models {
 			int random_index = GLib.Random.int_range(0, num_free_spaces);
 			board_state[free_spaces[random_index,0], free_spaces[random_index,1]] = val;
 			update_valid_moves ();
+			save_state ();
 		}
 
 		public void spawn_first_tile () {
@@ -85,6 +109,7 @@ namespace FourK.Models {
 			int index_y = GLib.Random.int_range (0,4);
 			board_state[index_x,index_y] = val;
 			update_valid_moves ();
+			save_state ();
 		}
 
 		public void shift_cols_up () {
@@ -157,7 +182,6 @@ namespace FourK.Models {
 					}
 				}
 			}
-			//print_board ();
 		}
 
 		private void shift_tile (int index_c, int index_r, FourK.Directions direction) {
