@@ -2,6 +2,11 @@ namespace FourK{
 	public class Application : Gtk.Application {
 		public MainWindow app_window;
 
+		private Controllers.Game game_controller;
+		private Models.Game game_model;
+		private Views.GameView game_view;
+
+		private Gtk.EventControllerKey key_controller;
 		public Application () {
 			Object (
 				application_id: "com.github.keilith-l.fourk",
@@ -20,6 +25,15 @@ namespace FourK{
 			}
 
 			app_window = new MainWindow (this);
+
+			key_controller = new Gtk.EventControllerKey (app_window);
+
+			game_model = new Models.Game ();
+			game_view = new Views.GameView (app_window);
+
+			game_controller = new Controllers.Game (game_model, game_view, key_controller);
+
+			app_window.add_view (game_view);
 			app_window.show_all ();
 
 		//	setup_state_saving ();

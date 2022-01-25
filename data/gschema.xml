@@ -11,5 +11,40 @@
 			<summary>Window position.</summary>
 			<description>Saved position of main calculator window.</description>
 		</key>
+		<key name="highest-score" type="i">
+			<default>0</default>
+			<summary>highest score</summary>
+			<description>The highest score reached</description>
+		</key>
+		<key name="current-score" type="i">
+			<default>0</default>
+			<summary>current score</summary>
+			<description>The current games score</description>
+		</key>
+		<key name="game-over" type="b">
+			<default>false</default>
+			<summary>is game over</summary>
+			<description>The current games state</description>
+		</key>
+		<key name="board-state-0" type="(iiii)">
+			<default>(0,0,0,0)</default>
+			<summary>board state</summary>
+			<description>The current board state</description>
+		</key>
+		<key name="board-state-1" type="(iiii)">
+			<default>(0,0,0,0)</default>
+			<summary>board state</summary>
+			<description>The current board state</description>
+		</key>
+		<key name="board-state-2" type="(iiii)">
+			<default>(0,0,0,0)</default>
+			<summary>board state</summary>
+			<description>The current board state</description>
+		</key>
+		<key name="board-state-3" type="(iiii)">
+			<default>(0,0,0,0)</default>
+			<summary>board state</summary>
+			<description>The current board state</description>
+		</key>
 	</schema>
 </schemalist>

@@ -1,5 +1,5 @@
 namespace FourK.Views {
-	internal class GameView : Gtk.Overlay {
+	public class GameView : Gtk.Overlay {
 		private Gtk.Box layout;
 		private Widgets.ScoreBox high_score;
 		private Widgets.ScoreBox current_score;
@@ -66,7 +66,7 @@ namespace FourK.Views {
 			board.set_board_state (board_state_strings);
 		}
 
-		public void show_game_over_dialog () {
+		public bool show_game_over_dialog () {
 			Widgets.GameOverDialog game_over_dialog = new Widgets.GameOverDialog ();
 			game_over_dialog.transient_for = parent_window;
 
@@ -80,6 +80,7 @@ namespace FourK.Views {
 				game_over_dialog.destroy ();
 				quit_game_requested ();
 			}
+			return false;
 		}
 
 		private void init_properties () {

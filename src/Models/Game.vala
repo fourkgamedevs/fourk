@@ -8,10 +8,12 @@ namespace FourK.Models {
 
 		public signal void board_updated (int[,] board_state);
 
+		private GLib.Settings settings;
+
 		public Game () {
 			board = new Board ();
-			high_score = 0;
-			start_new_game ();
+			settings = new GLib.Settings ("com.github.keilith-l.fourk");
+			load_state ();
 		}
 
 		public void start_new_game () {
@@ -20,6 +22,7 @@ namespace FourK.Models {
 			current_score = 0;
 			game_over_state = false;
 			board.spawn_first_tile ();
+			save_state();
 		}
 
 		public void move (FourK.Directions direction) {
@@ -67,6 +70,18 @@ namespace FourK.Models {
 			return board.get_largest_tile_value ();
 		}
 
+		public void load_state () {
+			settings.get("highest-score", "i", out high_score);
+			settings.get("current-score", "i", out current_score);
+			settings.get("game-over", "b", out game_over_state);
+		}
+
+		public void save_state () {
+			settings.set("highest-score", "i", high_score);
+			settings.set("current-score", "i", current_score);
+			settings.set("game-over", "b", game_over_state);
+		}
+
 		private void calculate_current_score () {
 			int score = current_score;
 			int[,] board_state = board.get_state();
@@ -85,6 +100,7 @@ namespace FourK.Models {
 				high_score = current_score;
 			}
 			board.reset_tile_merge_states ();
+			save_state ();
 		}
 
 		private void increment_move_counter () {
@@ -106,6 +122,7 @@ namespace FourK.Models {
 			} else {
 				game_over_state = true;
 			}
+			save_state ();
 		}
 
 		private bool is_move_valid (FourK.Directions direction) {
