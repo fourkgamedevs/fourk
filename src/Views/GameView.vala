@@ -83,6 +83,20 @@ namespace FourK.Views {
 			return false;
 		}
 
+		public bool show_victory_dialog () {
+			Widgets.VictoryDialog victory_dialog = new Widgets.VictoryDialog ();
+			victory_dialog.transient_for = parent_window;
+
+			int response_id = victory_dialog.run ();
+			if (response_id == Gtk.ResponseType.ACCEPT) {
+				victory_dialog.destroy ();
+			} else if (response_id == Gtk.ResponseType.CLOSE) {
+				victory_dialog.destroy ();
+				quit_game_requested ();
+			}
+			return false;
+		}
+
 		private void init_properties () {
 			set_vexpand(true);
 			set_valign (Gtk.Align.CENTER);

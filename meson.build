@@ -17,6 +17,7 @@ executable(
 	'src'/'Widgets'/'Tile.vala',
 	'src'/'Widgets'/'ScoreBox.vala',
 	'src'/'Widgets'/'GameOverDialog.vala',
+	'src'/'Widgets'/'VictoryDialog.vala',
 	'src'/'Views'/'GameView.vala',
 	'src'/'Controllers'/'Game.vala',
 	'src'/'Models'/'Game.vala',
