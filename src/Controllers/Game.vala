@@ -135,7 +135,7 @@ namespace FourK.Controllers {
 					next_milestone_message = "A Good Start!";
 					break;
 				case 256:
-					next_milestone_message = "Keep It UP!";
+					next_milestone_message = "Keep It Up!";
 					break;
 				case 512:
 					next_milestone_message = "Hi Five(12)! ";
