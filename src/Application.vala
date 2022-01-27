@@ -55,7 +55,7 @@ namespace FourK{
 		private void setup_custom_css () {
 			var css_provider = new Gtk.CssProvider ();
 			try {
-				css_provider.load_from_path("../src/Widgets/Tile.css");
+				css_provider.load_from_resource("/com/github/keilith-l/fourk/Tile.css");
 			} catch (GLib.Error e) {
 				warning ("Could not get css provider");
 			}
