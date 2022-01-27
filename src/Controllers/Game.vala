@@ -31,6 +31,9 @@ namespace FourK.Controllers {
 				update_game_view ();
 
 				if (game_model.get_largest_tile () == next_milestone_value) {
+					if(next_milestone_value == 4096) {
+						game_view.show_victory_dialog ();
+					}
 					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
@@ -44,6 +47,9 @@ namespace FourK.Controllers {
 				update_game_view ();
 
 				if (game_model.get_largest_tile () == next_milestone_value) {
+					if(next_milestone_value == 4096) {
+						game_view.show_victory_dialog ();
+					}
 					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
@@ -56,6 +62,9 @@ namespace FourK.Controllers {
 				update_game_view ();
 
 				if (game_model.get_largest_tile () == next_milestone_value) {
+					if(next_milestone_value == 4096) {
+						game_view.show_victory_dialog ();
+					}
 					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
@@ -68,6 +77,9 @@ namespace FourK.Controllers {
 				update_game_view ();
 
 				if (game_model.get_largest_tile () == next_milestone_value) {
+					if(next_milestone_value == 4096) {
+						game_view.show_victory_dialog ();
+					}
 					show_milestone ();
 				}
 				if (game_model.is_game_over()) {
