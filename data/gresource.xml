@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-	<gresource prefix="/com/github/keilith-l/fourk">
+	<gresource prefix="/com/github/fourkgamedevs/fourk">
 		<file >Tile.css</file>
 	</gresource>
 </gresources>

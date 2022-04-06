@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-	<schema path="/com/github/keilith-l/fourk/" id="com.github.keilith-l.fourk">
+	<schema path="/com/github/fourkgamedevs/fourk/" id="com.github.fourkgamedevs.fourk">
 		<key name="test-setting" type="b">
 			<default>false</default>
 			<summary>A useless test setting</summary>
