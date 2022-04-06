@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>com.github.keilith-l.fourk</id>
+	<id>com.github.fourkgamedevs.fourk</id>
 	<metadata_license>CC0</metadata_license>
 	<name>FourK</name>
 	<summary>A simple 4096 app</summary>
 	<description><p>A number sliding combination game!</p></description>
 
-	<launchable type="desktop-id">com.github.keilith-l.fourk.desktop</launchable>
+	<launchable type="desktop-id">com.github.fourkgamedevs.fourk.desktop</launchable>
 
-	<developer_name>Keilith L</developer_name>
+	<developer_name>Justin Lahman</developer_name>
 
 	<screenshots>
 	</screenshots>
