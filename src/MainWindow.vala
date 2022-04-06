@@ -32,7 +32,7 @@ namespace FourK {
 			global_grid.add (deck);
 			add (global_grid);
 
-			settings = new GLib.Settings ("com.github.keilith-l.fourk");
+			settings = new GLib.Settings ("com.github.fourkgamedevs.fourk");
 			settings.get ("window-position", "(ii)", out window_x, out window_y);
 			if (window_x != -1 || window_y != -1) {
 				move (window_x, window_y);

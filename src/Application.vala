@@ -10,7 +10,7 @@ namespace FourK{
 
 		public Application () {
 			Object (
-				application_id: "com.github.keilith-l.fourk",
+				application_id: "com.github.fourkgamedevs.fourk",
 				flags: ApplicationFlags.FLAGS_NONE
 			);
 		}
@@ -49,13 +49,13 @@ namespace FourK{
 		}
 
 		private void setup_custom_resources () {
-			Gtk.IconTheme.get_default ().add_resource_path("/com/github/keilith-l/fourk");
+			Gtk.IconTheme.get_default ().add_resource_path("/com/github/fourkgamedevs/fourk");
 		}
 
 		private void setup_custom_css () {
 			var css_provider = new Gtk.CssProvider ();
 			try {
-				css_provider.load_from_resource("/com/github/keilith-l/fourk/Tile.css");
+				css_provider.load_from_resource("/com/github/fourkgamedevs/fourk/Tile.css");
 			} catch (GLib.Error e) {
 				warning ("Could not get css provider");
 			}
