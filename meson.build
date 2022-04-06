@@ -1,4 +1,4 @@
-project('com.github.keilith-l.fourk', 'vala', 'c')
+project('com.github.fourkgamedevs.fourk', 'vala', 'c')
 
 gnome = import('gnome')
 
