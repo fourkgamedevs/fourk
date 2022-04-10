@@ -46,4 +46,12 @@
 		<content_attribute id="money-purchasing">none</content_attribute>
 		<content_attribute id="money-gambling">none</content_attribute>
 	</content_rating>
+
+	<releases>
+		<release version="1.0.0" date="2022-04-12" urgency="low">
+			<description>
+				<p>Initial Release</p>
+			</description>
+		</release>
+	</releases>
 </component>
